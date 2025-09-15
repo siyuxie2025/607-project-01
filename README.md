@@ -1,35 +1,45 @@
-This is the first project of Stats 607. 
-The goal is to 1.organize messy code into structured, maintainable projects. 2.automate your workflow to make reproducibility effortless
-I worked on a dataset of credit card transactions to perform exploratory data analysis and data cleaning. 
+**This is the first project of Stats 607 25FA.**
+
+## Project Instructions
+The goal is to 
+
+1.organize messy code into structured, maintainable projects. 
+
+2.automate your workflow to make reproducibility effortless
+
+## Data Analysis Description
+This was a homework to perform exploratory data analysis and data cleaning on a dataset of credit card transactions. The dataset simulates credit card transaction info resembling that of a financial institution's customers.
+
+## Dataset Description
+
 The following variables are included in the dataset:
 
-accountNumber: a unique identifier for the customer account associated with the transaction
-customerId: a unique identifier for the customer associated with the transaction
-creditLimit: the maximum amount of credit available to the customer on their account
-availableMoney: the amount of credit available to the customer at the time of the transaction
-transactionDateTime: the date and time of the transaction
-transactionAmount: the amount of the transaction
-merchantName: the name of the merchant where the transaction took place
-acqCountry: the country where the acquiring bank is located
-merchantCountryCode: the country where the merchant is located
-posEntryMode: the method used by the customer to enter their payment card information during the transaction
-posConditionCode: the condition of the point-of-sale terminal at the time of the transaction
-merchantCategoryCode: the category of the merchant where the transaction took place
-currentExpDate: the expiration date of the customer's payment card
-accountOpenDate: the date the customer's account was opened
-dateOfLastAddressChange: the date the customer's address was last updated
-cardCVV: the three-digit CVV code on the back of the customer's payment card
-enteredCVV: the CVV code entered by the customer during the transaction
-cardLast4Digits: the last four digits of the customer's payment card
-transactionType: the type of transaction
-echoBuffer: an internal variable used by the financial institution
-currentBalance: the current balance on the customer's account
-merchantCity: the city where the merchant is located
-merchantState: the state where the merchant is located
-merchantZip: the ZIP code where the merchant is located
-cardPresent: whether or not the customer's payment card was present at the time of the transaction
-posOnPremises: whether or not the transaction took place on the merchant's premises
-recurringAuthInd: whether or not the transaction was a recurring payment
-expirationDateKeyInMatch: whether or not the expiration date of the payment card was entered correctly during the transaction
-isFraud: whether or not the transaction was fraudulent
-EPF
+- `accountNumber`: a unique identifier for the customer account associated with the transaction
+- `customerId`: a unique identifier for the customer associated with the transaction
+- `creditLimit`: the maximum amount of credit available to the customer on their account
+- `availableMoney`: the amount of credit available to the customer at the time of the transaction
+- `transactionDateTime`: the date and time of the transaction
+- `transactionAmount`: the amount of the transaction
+- `merchantName`: the name of the merchant where the transaction took place
+- `acqCountry`: the country where the acquiring bank is located
+- `merchantCountryCode`: the country where the merchant is located
+- `posEntryMode`: the method used by the customer to enter their payment card information during the transaction
+- `posConditionCode`: the condition of the point-of-sale terminal at the time of the transaction
+- `merchantCategoryCode`: the category of the merchant where the transaction took place
+- `currentExpDate`: the expiration date of the customer's payment card
+- `accountOpenDate`: the date the customer's account was opened
+- `dateOfLastAddressChange`: the date the customer's address was last updated
+- `cardCVV`: the three-digit CVV code on the back of the customer's payment card
+- `enteredCVV`: the CVV code entered by the customer during the transaction
+- `cardLast4Digits`: the last four digits of the customer's payment card
+- `transactionType`: the type of transaction
+- `echoBuffer`: an internal variable used by the financial institution
+- `currentBalance`: the current balance on the customer's account
+- `merchantCity`: the city where the merchant is located
+- `merchantState`: the state where the merchant is located
+- `merchantZip`: the ZIP code where the merchant is located
+- `cardPresent`: whether or not the customer's payment card was present at the time of the transaction
+- `posOnPremises`: whether or not the transaction took place on the merchant's premises
+- `recurringAuthInd`: whether or not the transaction was a recurring payment
+- `expirationDateKeyInMatch`: whether or not the expiration date of the payment card was entered correctly during the transaction
+- `isFraud`: whether or not the transaction was fraudulent
