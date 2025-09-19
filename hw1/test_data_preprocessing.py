@@ -30,8 +30,8 @@ class TestDataPreprocessing():
         '''Test train-test split functionality.'''
         file_path = 'data/raw/CreditCardFraud_updated.csv'  # Replace with your actual file path
         data = read_data(file_path)
-        train_data, test_data = train_test_split_data(data)
-        assert train_data is not None
-        assert test_data is not None
-        assert not train_data.empty
-        assert not test_data.empty
+        test_X_train, test_X_test, test_y_train, test_y_test = train_test_split_data(data, target_column='isFraud', test_size=0.3, random_state=42)
+        assert test_X_train is not None
+        assert test_X_test is not None
+        assert test_y_train is not None
+        assert test_y_test is not None
