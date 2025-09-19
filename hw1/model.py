@@ -2,8 +2,11 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 def run_analysis(X_train, X_test, y_train, y_test):
-    """Train a simple ML model and evaluate it."""
+    """Train a simple logistic regression and evaluate it."""
     # Logistic Regression (baseline)
     model = LogisticRegression(max_iter=1000)
 
@@ -15,3 +18,23 @@ def run_analysis(X_train, X_test, y_train, y_test):
     cm = confusion_matrix(y_test, y_pred)
 
     return model, report, cm
+
+
+def show_results(report, cm):
+    """
+    Print metrics and plot confusion matrix.
+    Parameters:
+    report (dict): Classification report as a dictionary.
+    cm (array): Confusion matrix.
+    """
+    
+    print("Classification Report:")
+    for label, metrics in report.items():
+        print(label, metrics)
+
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Not Fraud", "Fraud"], yticklabels=["Not Fraud", "Fraud"])
+    plt.title("Confusion Matrix")
+    plt.ylabel("True")
+    plt.xlabel("Predicted")
+    plt.show()
