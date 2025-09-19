@@ -9,7 +9,13 @@ The goal of this project is to learn:
 
 
 ## Data Analysis Description
-This was a homework to perform exploratory data analysis and data cleaning on a dataset of credit card transactions. The dataset simulates credit card transaction info resembling that of a financial institution's customers. In addition to the original exploratory data analysis, I train a logistic regression model to predict whether a transaction would be a fraud. 
+This was a homework to perform exploratory data analysis and data cleaning on a dataset of credit card transactions. 
+The primary goal of this project was to gain insights into the predictors of credit card fraud, which is an important problem in the financial industry.
+The dataset simulates credit card transaction info resembling that of a financial institution's customers. 
+In addition to the original exploratory data analysis, I train a logistic regression model to predict whether a transaction would be a fraud. 
+
+## Dataset
+The raw data can be found in data/raw folder. 
 
 ## Dataset Description
 
@@ -44,3 +50,10 @@ The following variables are included in the dataset:
 - `recurringAuthInd`: whether or not the transaction was a recurring payment
 - `expirationDateKeyInMatch`: whether or not the expiration date of the payment card was entered correctly during the transaction
 - `isFraud`: whether or not the transaction was fraudulent
+
+
+## Setup Instructions
+Follow `SETUP.md` to set up the environment and reqiured packages. 
+
+## Usage Examples
+
