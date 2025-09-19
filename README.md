@@ -15,7 +15,7 @@ The dataset simulates credit card transaction info resembling that of a financia
 In addition to the original exploratory data analysis, I train a logistic regression model to predict whether a transaction would be a fraud. 
 
 ## Dataset
-The raw data can be found in data/raw folder. 
+The raw data is available at [CreditCardFraud_updated](https://www.dropbox.com/scl/fi/amlnrhnefhwkyv6byn517/CreditCardFraud_updated.csv?rlkey=t6hnsl3w5c77xddtkxzjxasa1&st=fy22wrtx&dl=0). 
 
 ## Dataset Description
 
