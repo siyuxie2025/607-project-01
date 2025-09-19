@@ -12,9 +12,7 @@ def read_data(file_path):
     Returns:
     dataframe: The data read from the CSV file.
     """
-    # Read the CSV file into a DataFrame
     data = pd.read_csv(file_path)
-
     return data
 
 def data_find_duplicates(data):
@@ -54,10 +52,17 @@ def data_preprocessing(data):
     data = data.dropna(axis=1, how='all')
 
     # Format the date column
-    data['transactionDateTime_dt'] = pd.to_datetime(data['transactionDateTime'], format='%Y-%m-%dT%H:%M:%S')
-    data['currentExpDate_dt'] = pd.to_datetime(data['currentExpDate'], format='%m/%Y')
-    data['accountOpenDate_dt'] = pd.to_datetime(data['accountOpenDate'], format='%Y-%m-%d')
-    data['dateOfLastAddressChange_dt'] = pd.to_datetime(data['dateOfLastAddressChange'], format='%Y-%m-%d')
+    #data['transactionDateTime_dt'] = pd.to_datetime(data['transactionDateTime'], format='%Y-%m-%dT%H:%M:%S')
+    data.loc[:, 'transactionDateTime_dt'] = pd.to_datetime(data['transactionDateTime'], format='%Y-%m-%dT%H:%M:%S')
+    
+    #data['currentExpDate_dt'] = pd.to_datetime(data['currentExpDate'], format='%m/%Y')
+    data.loc[:, 'currentExpDate_dt'] = pd.to_datetime(data['currentExpDate'], format='%m/%Y')
+
+    #data['accountOpenDate_dt'] = pd.to_datetime(data['accountOpenDate'], format='%Y-%m-%d')
+    data.loc[:, 'accountOpenDate_dt'] = pd.to_datetime(data['accountOpenDate'], format='%Y-%m-%d')
+    
+    #data['dateOfLastAddressChange_dt'] = pd.to_datetime(data['dateOfLastAddressChange'], format='%Y-%m-%d')
+    data.loc[:, 'dateOfLastAddressChange_dt'] = pd.to_datetime(data['dateOfLastAddressChange'], format='%Y-%m-%d')
 
     data.drop(columns=['transactionDateTime', 'currentExpDate', 'accountOpenDate', 'dateOfLastAddressChange'], inplace=True)
     data.to_csv('data/processed/preprocessed_data.csv', index=False)
@@ -79,11 +84,12 @@ def train_test_split_data(data, target_column, test_size=0.3, random_state=42):
     tuple: The training and testing sets (X_train, X_test, y_train, y_test).
     """
 
-    ## only keep the numerical data for model training
+    # only keep the numerical data for model training
     numeric_data = data.select_dtypes(include=[np.number])
+    y = data[target_column].astype(int)
     data = numeric_data.copy()
-    X = data.drop(columns=[target_column])
-    y = data[target_column]
+    X = data.to_numpy()
+    
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
 
