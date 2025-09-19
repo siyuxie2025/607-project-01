@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from data_preprocessing import read_data, data_preprocessing, data_find_duplicates, train_test_split_data
 
+my_figsize = (16, 20)
+
 def eda_features(data):
     """
     Perform exploratory data analysis on numerical features, whether CVV matches.
@@ -18,7 +20,7 @@ def eda_features(data):
     numeric_cols = ["creditLimit", "currentBalance","availableMoney", "transactionAmount"]
     
     # Create a figure to hold all subplots
-    fig, axes = plt.subplots(nrows=4, ncols=2, figsize=(16, 20))
+    fig, axes = plt.subplots(nrows=4, ncols=2, figsize=my_figsize)
 
     # Loop through each numeric column
     for i, col in enumerate(numeric_cols):
@@ -125,7 +127,7 @@ def eda_categorical_features(data):
 
 
     # Create a figure to hold all subplots
-    fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(16, 20))
+    fig, axes = plt.subplots(nrows=3, ncols=2, figsize=my_figsize)
 
     # Loop through each categorical column
     for i, col in enumerate(categorical_cols):
@@ -140,7 +142,7 @@ def eda_categorical_features(data):
     plt.show()
 
     ## full data
-    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    fig, axes = plt.subplots(2, 2, figsize=my_figsize)
 
     # Iterate over each variable
     for i, col in enumerate(['transactionAmount', 'creditLimit', 'availableMoney', 'currentBalance']):
