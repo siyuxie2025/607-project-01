@@ -1,2 +1,4 @@
 data/raw/CreditCardFraud_updated.csv filter=lfs diff=lfs merge=lfs -text
 data/processed/preprocessed_data.csv filter=lfs diff=lfs merge=lfs -text
+data/raw/*.csv filter=lfs diff=lfs merge=lfs -text
+data/processed/*.csv filter=lfs diff=lfs merge=lfs -text
