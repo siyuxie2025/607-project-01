@@ -1,0 +1,34 @@
+from data_preprocessing import read_data, data_find_duplicates, data_preprocessing, train_test_split_data
+from EDA import eda_features, eda_cvv_match, eda_transaction_amount, eda_categorical_features
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+from model import run_analysis, show_results
+
+
+if __name__ == "__main__":
+
+    # Example usage
+    file_path = 'data/raw/CreditCardFraud_updated.csv'  # Replace with your actual file path
+    data = read_data(file_path)
+    data_find_duplicates(data)
+
+    preprocessed_data = data_preprocessing(data)
+    
+    #save preprocessed data
+    preprocessed_data.to_csv('data/processed/preprocessed_data.csv', index=False)
+
+    # EDA part in EDA.py
+    eda_features(preprocessed_data)
+    eda_cvv_match(preprocessed_data)
+    eda_transaction_amount(preprocessed_data)
+    eda_categorical_features(preprocessed_data)
+
+
+    X_train, X_test, y_train, y_test = train_test_split_data(preprocessed_data, target_column='isFraud')
+    
+    model, report, cm = run_analysis(X_train, X_test, y_train, y_test)
+
+    show_results(report, cm, model, 'results/model_results.json', 'results/logistic_regression_model.pkl')
+
+    print("Model training and evaluation complete. Results saved.")
