@@ -1,4 +1,4 @@
-from model import run_analysis
+from model import run_analysis, show_results
 import pandas as pd
 from data_preprocessing import read_data, data_preprocessing, train_test_split_data
 import pytest
@@ -33,3 +33,20 @@ class TestModel():
 
         # Check that the confusion matrix is a numpy array
         assert isinstance(cm, np.ndarray)
+
+    def test_show_results(self):
+        '''Test the show_results function.'''
+        # Create a small synthetic classification report and confusion matrix
+        report = {
+            '0': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 2},
+            '1': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 2},
+            'accuracy': 1.0,
+            'macro avg': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 4},
+            'weighted avg': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 4}
+        }
+        cm = np.array([[2, 0], [0, 2]])
+
+        # Call show_results (this will print to console and plot the confusion matrix)
+        show_results(report, cm)
+        # If no exceptions are raised, the test passes
+        assert True
