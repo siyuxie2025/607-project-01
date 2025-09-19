@@ -15,6 +15,28 @@ def read_data(file_path):
     data = pd.read_csv(file_path)
     return data
 
+def data_preprocessing(data):
+    """
+    Preprocess the input data by deleting the completely empty columns, filling missing values, and formatting date columns.
+
+    Parameters:
+    data (dataframe): The input data to be preprocessed.
+
+    Returns:
+    dataframe: The preprocessed data.
+    """
+    # Step 1: Handle missing values
+    data = data_preprocessing_na(data)
+
+    # Step 2: Locate time columns
+    time_columns = data_locate_time_columns(data)
+
+    # Step 3: Format date columns
+    data = data_preprocessing_dt(data, time_columns)
+
+    return data
+
+
 def data_find_duplicates(data):
     """
     Find duplicate columns in the data.
@@ -34,12 +56,9 @@ def data_find_duplicates(data):
     missing_cols = data.isnull().all()
     print("Columns with entirely missing data:", data.columns[missing_cols])
 
-
-
-
-def data_preprocessing(data):
+def data_preprocessing_na(data):
     """
-    Preprocess the input data by deleting the completely empty columns, and formatting the date.
+    Preprocess the input data by deleting the completely empty columns, and filling missing values.
 
     Parameters:
     data (dataframe): The input data to be preprocessed.
@@ -51,23 +70,73 @@ def data_preprocessing(data):
     # Delete completely empty columns
     data = data.dropna(axis=1, how='all')
 
-    # Format the date column
-    #data['transactionDateTime_dt'] = pd.to_datetime(data['transactionDateTime'], format='%Y-%m-%dT%H:%M:%S')
-    data.loc[:, 'transactionDateTime_dt'] = pd.to_datetime(data['transactionDateTime'], format='%Y-%m-%dT%H:%M:%S')
-    
-    #data['currentExpDate_dt'] = pd.to_datetime(data['currentExpDate'], format='%m/%Y')
-    data.loc[:, 'currentExpDate_dt'] = pd.to_datetime(data['currentExpDate'], format='%m/%Y')
-
-    #data['accountOpenDate_dt'] = pd.to_datetime(data['accountOpenDate'], format='%Y-%m-%d')
-    data.loc[:, 'accountOpenDate_dt'] = pd.to_datetime(data['accountOpenDate'], format='%Y-%m-%d')
-    
-    #data['dateOfLastAddressChange_dt'] = pd.to_datetime(data['dateOfLastAddressChange'], format='%Y-%m-%d')
-    data.loc[:, 'dateOfLastAddressChange_dt'] = pd.to_datetime(data['dateOfLastAddressChange'], format='%Y-%m-%d')
-
-    data.drop(columns=['transactionDateTime', 'currentExpDate', 'accountOpenDate', 'dateOfLastAddressChange'], inplace=True)
-    data.to_csv('data/processed/preprocessed_data.csv', index=False)
     return data
 
+
+
+def data_preprocessing_dt(data, time_columns):
+    """
+    Preprocess the input data by deleting the completely empty columns, and formatting the date.
+
+    Parameters:
+    data (dataframe): The input data to be preprocessed.
+
+    Returns:
+    list of float: The preprocessed data.
+    """
+
+    # Format the date column
+    for col in time_columns:
+        if col in data.columns:
+            print(f"Formatting column: {col}")
+            col_format = col + '_dt'
+            if col == 'transactionDateTime':
+                data.loc[:, col_format] = pd.to_datetime(data[col], format='%Y-%m-%dT%H:%M:%S')
+            elif col == 'currentExpDate':
+                data.loc[:, col_format] = pd.to_datetime(data[col], format='%m/%Y')
+            elif col == 'accountOpenDate':
+                data.loc[:, col_format] = pd.to_datetime(data[col], format='%Y-%m-%d')
+            elif col == 'dateOfLastAddressChange':
+                data.loc[:, col_format] = pd.to_datetime(data[col], format='%Y-%m-%d')
+            else:
+                print(f"Unknown date format for column: {col}")
+        else:
+            print(f"Column {col} not found in data.")
+
+    # Drop the original date columns
+    data.drop(columns=time_columns, inplace=True)
+    
+    return data
+
+def data_save_processed_data(data, file_path):
+    """
+    Save the preprocessed data to a CSV file.
+
+    Parameters:
+    data (dataframe): The preprocessed data to be saved.
+    file_path (str): The path to save the CSV file.
+
+    Returns:
+    None
+    """
+    data.to_csv(file_path, index=False)
+    print(f"Preprocessed data saved to {file_path}")
+
+# data.to_csv('data/processed/preprocessed_data.csv', index=False)
+
+
+def data_locate_time_columns(data):
+    """
+    Locate the time columns in the data.
+
+    Parameters:
+    data (dataframe): The input data to locate time columns.
+
+    Returns:
+    list of str: The list of time column names.
+    """
+    time_columns = [col for col in data.columns if 'Date' in col or 'Time' in col or 'date' in col]
+    return time_columns
 
 
 def train_test_split_data(data, target_column, test_size=0.3, random_state=42):
