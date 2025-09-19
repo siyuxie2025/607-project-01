@@ -4,3 +4,8 @@ venv/
 .o
 __pycache__/
 *.pyc
+# Large data files
+data/raw/*.csv
+data/processed/*.csv
+*.pkl
+*.h5
