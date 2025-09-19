@@ -1,14 +1,15 @@
 **This is the first project of Stats 607 25FA.**
 
 ## Project Instructions
-The goal is to 
+The goal of this project is to learn: 
 
-1.organize messy code into structured, maintainable projects. 
+1. organize messy code into structured, maintainable projects. 
 
-2.automate your workflow to make reproducibility effortless
+2. automate your workflow to make reproducibility effortless
+
 
 ## Data Analysis Description
-This was a homework to perform exploratory data analysis and data cleaning on a dataset of credit card transactions. The dataset simulates credit card transaction info resembling that of a financial institution's customers.
+This was a homework to perform exploratory data analysis and data cleaning on a dataset of credit card transactions. The dataset simulates credit card transaction info resembling that of a financial institution's customers. In addition to the original exploratory data analysis, I train a logistic regression model to predict whether a transaction would be a fraud. 
 
 ## Dataset Description
 
