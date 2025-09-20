@@ -28,16 +28,7 @@ def run_analysis(X_train, X_test, y_train, y_test):
     plt.xlabel("Predicted")
     plt.savefig('results/figures/confusion_matrix.png')
 
+    print("Classification completed and results saved.")
     return model, report, cm
 
 
-def show_results(report, cm):
-    """
-    Print metrics and plot confusion matrix.
-    Parameters:
-    report (dict): Classification report as a dictionary.
-    cm (array): Confusion matrix.
-    """
-
-   
-    # plt.show()

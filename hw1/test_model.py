@@ -11,16 +11,18 @@ class TestModel():
         '''Test the run_analysis function.'''
         # Create a small synthetic dataset for testing
         data = pd.DataFrame({
-            'feature1': [0, 1, 0, 1],
-            'feature2': [1, 0, 1, 0],
-            'isFraud': [0, 1, 0, 1]
+            'feature1': [0, 1, 0, 1, 1, 0, 1, 0],
+            'feature2': [1, 0, 1, 0, 0, 1, 0, 1],
+            'isFraud': [0, 1, 0, 1, 1, 0, 1, 0]
         })
 
         X = data[['feature1', 'feature2']]
         y = data['isFraud']
 
         # Split the data
-        X_train, X_test, y_train, y_test = train_test_split_data(data, target_column='isFraud', test_size=0.5, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split_data(data,
+                                                                  target_column='isFraud', 
+                                                                  test_size=0.5, random_state=42)
 
         # Run analysis
         model, report, cm = run_analysis(X_train, X_test, y_train, y_test)
