@@ -56,4 +56,40 @@ The following variables are included in the dataset:
 Follow `SETUP.md` to set up the environment and reqiured packages. 
 
 ## Usage Examples
+### Example 1: Preprocessing
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from data_preprocessing import data_preprocessing, data_save_processed_data
 
+data = pd.read_csv('data/raw/CreditCardFraud_updated.csv')
+preprocessed_data = data_preprocessing(data)
+data_save_processed_data(preprocessed_data, "data/processed/preprocessed_data")
+```
+
+### Example 2: Build Logistic Regression Model and Save Results
+```{python}
+from data_preprocessing import train_test_split_data
+import pandas as pd
+import numpy as np
+
+preprocessed_data = pd.read_csv("data/processed/preprocessed_data")
+X_train, X_test, y_train, y_test = train_test_split_data(preprocessed_data, target_column = 'isFraud')
+run_analysis(X_train, X_test, y_train, y_test)
+```
+Results are saved in results/report folder. 
+
+### Example 3: Exploratory Data Analysis
+```{python}
+from EDA import eda_features, eda_cvv_match, eda_transaction_amount, eda_categorical_features
+import pandas as pd
+import numpy as np
+
+preprocessed_data = pd.read_csv("data/processed/preprocessed_data")
+eda_features(preprocessed_data)
+eda_cvv_match(preprocessed_data)
+eda_transaction_amount(preprocessed_data)
+eda_categorical_features(preprocessed_data)
+```
+Figures are saved in results/figures folder. 
