@@ -5,6 +5,7 @@ import seaborn as sns
 from data_preprocessing import read_data, data_preprocessing, data_find_duplicates, train_test_split_data
 
 my_figsize = (16, 20)
+my_figsize_kde = (10, 10)
 
 def eda_features(data):
     """
@@ -28,7 +29,7 @@ def eda_features(data):
         sns.histplot(data=data[col], bins=100, ax=axes[i, 1], color='skyblue')
     plt.tight_layout()
     plt.savefig('results/figures/boxplot_histogram_combined.png')
-    plt.show()
+    # plt.show()
 
 
 def eda_cvv_match(data):
@@ -43,13 +44,13 @@ def eda_cvv_match(data):
     """
     # Create a new column to indicate if CVV matches
     # for all data
-    data['is_cvv_match'] = (data['CVVCode'] == data['CVVCodeMatch']).astype(int)
+    data['is_cvv_match'] = (data['cardCVV'] == data['enteredCVV']).astype(int)
     sns.countplot(data=data, x='is_cvv_match', hue='is_cvv_match', palette='Set2')
     plt.title('Relationship between isFraud and is_cvv_match')
     plt.xlabel('isFraud')
     plt.ylabel('Count')
     plt.savefig('results/figures/is_cvv_match_countplot.png')
-    plt.show()
+    # plt.show()
 
     # for fraud data
     sns.countplot(data=data[data.isFraud==1], x='is_cvv_match', hue='is_cvv_match')
@@ -57,7 +58,7 @@ def eda_cvv_match(data):
     plt.xlabel('is_cvv_match')
     plt.ylabel('Count')
     plt.savefig('results/figures/is_cvv_match_fraud_countplot.png')
-    plt.show()
+    # plt.show()
 
 def eda_transaction_amount(data):
     """
@@ -76,7 +77,7 @@ def eda_transaction_amount(data):
     plt.xlabel('Transaction Amount')
     plt.ylabel('Frequency')
     plt.savefig('results/figures/transaction_amount_distribution.png')
-    plt.show()
+    # plt.show()
 
     # Plot the distribution of transaction amounts with a zoomed-in view
     sns.histplot(data=data[data.transactionAmount < 1500], x='transactionAmount', bins=30)
@@ -84,7 +85,7 @@ def eda_transaction_amount(data):
     plt.ylabel('Frequency')
     plt.title('Distribution of Transaction Amount (Zoomed In)')
     plt.savefig('results/figures/transaction_amount_distribution_zoomed.png')
-    plt.show()
+    # plt.show()
 
     # Plot the log-transformed transaction amounts
     sns.histplot(np.log(data.transactionAmount+1), bins=30)
@@ -92,7 +93,7 @@ def eda_transaction_amount(data):
     plt.ylabel('Frequency')
     plt.title('Distribution of log(Transaction Amount)')
     plt.savefig('results/figures/log_transaction_amount_distribution.png')
-    plt.show()
+    # plt.show()
 
 def eda_categorical_features(data):
     """
@@ -124,7 +125,7 @@ def eda_categorical_features(data):
     # Adjust layout
     plt.tight_layout()
     plt.savefig('results/figures/fraud_rate_by_categorical_features.png')
-    plt.show()
+    # plt.show()
 
 
     # Create a figure to hold all subplots
@@ -140,17 +141,17 @@ def eda_categorical_features(data):
 
     plt.tight_layout()
     plt.savefig('results/figures/categorical_features_countplots.png')
-    plt.show()
+    # plt.show()
 
     ## full data
-    fig, axes = plt.subplots(2, 2, figsize=my_figsize)
+    fig, axes = plt.subplots(2, 2, figsize=my_figsize_kde)
 
     # Iterate over each variable
     for i, col in enumerate(['transactionAmount', 'creditLimit', 'availableMoney', 'currentBalance']):
         # Plot the conditional probability density plot for fraud cases (blue)
-        sns.kdeplot(data=df2[df2.isFraud==True][col], fill=True, ax=axes[i // 2, i % 2], label="is_fraud")
+        sns.kdeplot(data=data[data.isFraud==True][col], fill=True, ax=axes[i // 2, i % 2], label="is_fraud")
         # Plot the conditional probability density plot for non-fraud cases (orange)
-        sns.kdeplot(data=df2[df2.isFraud==False][col], fill=True, ax=axes[i // 2, i % 2], label="not_fraud")
+        sns.kdeplot(data=data[data.isFraud==False][col], fill=True, ax=axes[i // 2, i % 2], label="not_fraud")
         axes[i // 2, i % 2].set_title(f'Conditional Probability Density of {col} by isFraud')
         axes[i // 2, i % 2].set_xlabel(col)
         axes[i // 2, i % 2].set_ylabel('Density')
@@ -159,7 +160,7 @@ def eda_categorical_features(data):
     # Adjust layout
     plt.tight_layout()
     plt.savefig('results/figures/conditional_probability_density_plots.png')
-    plt.show()
+    # plt.show()
 
 
 # Example usage:
