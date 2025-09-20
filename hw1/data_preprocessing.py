@@ -25,8 +25,9 @@ def data_preprocessing(data):
     Returns:
     dataframe: The preprocessed data.
     """
-    # Step 1: Handle missing values
+    # Step 1: Handle missing values and drop empty columns
     data = data_preprocessing_na(data)
+    data = data.dropna(subset=['isFraud']) 
 
     # Step 2: Locate time columns
     time_columns = data_locate_time_columns(data)
@@ -154,12 +155,14 @@ def train_test_split_data(data, target_column, test_size=0.3, random_state=42):
     """
 
     # only keep the numerical data for model training
-    numeric_data = data.select_dtypes(include=[np.number])
+    numeric_data = data[["creditLimit", "currentBalance","availableMoney", "transactionAmount"]]
     y = data[target_column].astype(int)
     data = numeric_data.copy()
     X = data.to_numpy()
     
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=test_size, random_state=random_state)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y,
+                                                         test_size=test_size, 
+                                                         random_state=random_state)
 
     return X_train, X_test, y_train, y_test
