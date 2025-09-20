@@ -25,10 +25,7 @@ if __name__ == "__main__":
     eda_categorical_features(preprocessed_data)
 
 
-    X_train, X_test, y_train, y_test = train_test_split_data(preprocessed_data, target_column='isFraud')
+    X_train, X_test, y_train, y_test = train_test_split_data(preprocessed_data, 
+                                                             target_column='isFraud')
     
-    model, report, cm = run_analysis(X_train, X_test, y_train, y_test)
-
-    show_results(report, cm, model, 'results/model_results.json', 'results/logistic_regression_model.pkl')
-
-    print("Model training and evaluation complete. Results saved.")
+    run_analysis(X_train, X_test, y_train, y_test)
