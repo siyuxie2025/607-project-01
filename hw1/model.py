@@ -14,7 +14,7 @@ def run_analysis(X_train, X_test, y_train, y_test):
     y_pred = model.predict(X_test)
 
     # Evaluation
-    report = classification_report(y_test, y_pred, output_dict=True)
+    report = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
     cm = confusion_matrix(y_test, y_pred)
 
     pd.DataFrame(report).to_json('results/report/model_results.json')
