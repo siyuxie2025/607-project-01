@@ -65,7 +65,7 @@ from data_preprocessing import data_preprocessing, data_save_processed_data
 
 data = pd.read_csv('data/raw/CreditCardFraud_updated.csv')
 preprocessed_data = data_preprocessing(data)
-data_save_processed_data(preprocessed_data, "data/processed/preprocessed_data")
+data_save_processed_data(preprocessed_data, 'data/processed/preprocessed_data')
 ```
 
 ### Example 2: Build Logistic Regression Model and Save Results
@@ -74,7 +74,7 @@ from data_preprocessing import train_test_split_data
 import pandas as pd
 import numpy as np
 
-preprocessed_data = pd.read_csv("data/processed/preprocessed_data")
+preprocessed_data = pd.read_csv('data/processed/preprocessed_data')
 X_train, X_test, y_train, y_test = train_test_split_data(preprocessed_data, target_column = 'isFraud')
 run_analysis(X_train, X_test, y_train, y_test)
 ```
@@ -86,10 +86,16 @@ from EDA import eda_features, eda_cvv_match, eda_transaction_amount, eda_categor
 import pandas as pd
 import numpy as np
 
-preprocessed_data = pd.read_csv("data/processed/preprocessed_data")
+preprocessed_data = pd.read_csv('data/processed/preprocessed_data')
 eda_features(preprocessed_data)
 eda_cvv_match(preprocessed_data)
 eda_transaction_amount(preprocessed_data)
 eda_categorical_features(preprocessed_data)
 ```
 Figures are saved in results/figures folder. 
+
+### Example 4: One-Command Execution
+```{python}
+python hw1/run_analysis.py
+```
+This code generates all figures and saves the model results. 
