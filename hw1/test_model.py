@@ -1,4 +1,4 @@
-from model import run_analysis, show_results
+from model import run_analysis
 import pandas as pd
 from data_preprocessing import read_data, data_preprocessing, train_test_split_data
 import pytest
@@ -10,13 +10,16 @@ class TestModel():
     def test_run_analysis(self):
         '''Test the run_analysis function.'''
         # Create a small synthetic dataset for testing
+        cols = ['creditLimit', 'currentBalance', 'availableMoney', 'transactionAmount']
         data = pd.DataFrame({
-            'feature1': [0, 1, 0, 1, 1, 0, 1, 0],
-            'feature2': [1, 0, 1, 0, 0, 1, 0, 1],
+            'creditLimit': [1000, 2000, 1500, 3000, 2500, 1200, 1800, 2200],
+            'currentBalance': [500, 1500, 800, 2500, 2000, 600, 1200, 1800],
+            'availableMoney': [400, 1300, 700, 2400, 1900, 500, 1100, 1700],
+            'transactionAmount': [100, 200, 150, 300, 250, 120, 180, 220],
             'isFraud': [0, 1, 0, 1, 1, 0, 1, 0]
         })
 
-        X = data[['feature1', 'feature2']]
+        X = data[['creditLimit', 'currentBalance', 'availableMoney', 'transactionAmount']]
         y = data['isFraud']
 
         # Split the data
@@ -35,20 +38,3 @@ class TestModel():
 
         # Check that the confusion matrix is a numpy array
         assert isinstance(cm, np.ndarray)
-
-    def test_show_results(self):
-        '''Test the show_results function.'''
-        # Create a small synthetic classification report and confusion matrix
-        report = {
-            '0': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 2},
-            '1': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 2},
-            'accuracy': 1.0,
-            'macro avg': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 4},
-            'weighted avg': {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0, 'support': 4}
-        }
-        cm = np.array([[2, 0], [0, 2]])
-
-        # Call show_results (this will print to console and plot the confusion matrix)
-        show_results(report, cm)
-        # If no exceptions are raised, the test passes
-        assert True
