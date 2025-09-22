@@ -123,7 +123,6 @@ def data_save_processed_data(data, file_path):
     data.to_csv(file_path, index=False)
     print(f"Preprocessed data saved to {file_path}")
 
-# data.to_csv('data/processed/preprocessed_data.csv', index=False)
 
 
 def data_locate_time_columns(data):
